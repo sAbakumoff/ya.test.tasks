@@ -1,0 +1,1 @@
+YA application test tasks
