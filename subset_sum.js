@@ -25,7 +25,7 @@
   }
   function isFunction(value) {
     return {}.toString.call(value) === '[object Function]';
-  }  
+  }
   /**
    * Helper function that returns the array that contains the numbers 
    * selected from the given array
@@ -116,10 +116,10 @@
   /**
    * Support for node.js modules, AMD modules and export to global scope
   */
-  if (typeof(module) == 'object' && module.hasOwnProperty('exports')) {
+  if (typeof module === 'object' && module.hasOwnProperty('exports')) {
     module.exports = algorithms;
   }
-  else if(typeof(define) === 'function' && define.hasOwnProperty('amd')) {
+  else if(typeof define  === 'function' && define.hasOwnProperty('amd')) {
     define(algorithms);
   }
   else {

@@ -1,4 +1,4 @@
-(function (scope, undefined) {
+(function (scope) {
   var optimizer = {}, resetInterval = 1000;
   if (typeof Number.isFinite !== 'function') {
     Number.isFinite = function isFinite(value) {
@@ -23,20 +23,23 @@
    * @callback 
    * optional callback that is invoked when a function execution is cancelled
    * the "this" value and arguments are passed as the parameters
+   * returns the new function that should be used instead of original function
+   * sample of usage:
+   * Math.sqrt = optimizer.limitFunctionsExecution(Math.sqrt, 10);
   */
-  optimizer.limitFunctionsExecution = function(fn, maxExecNumber, callback){
+  optimizer.limitFunctionsExecution = function (fn, maxExecNumber, callback) {
     if (!isFunction(fn) || !Number.isFinite(maxExecNumber)) {
       return;
     }
     var counter = 0;
-    setInterval(function resetCounter(){
+    setInterval(function resetCounter() {
       counter = 0;
     }, resetInterval);
-    return function limitedFunction(){
+    return function limitedFunction() {
       if (counter++ < maxExecNumber) {
         return fn.apply(this, arguments);
       }
-      else if (isFunction(callback)) {
+      if (isFunction(callback)) {
         callback(this, arguments);
       }
     };
@@ -44,10 +47,10 @@
   /**
    * Support for node.js modules, AMD modules and export to global scope
   */
-  if (typeof(module) == 'object' && module.hasOwnProperty('exports')) {
+  if (typeof module === 'object' && module.hasOwnProperty('exports')) {
     module.exports = optimizer;
   }
-  else if(typeof(define) === 'function' && define.hasOwnProperty('amd')) {
+  else if (typeof define === 'function' && define.hasOwnProperty('amd')) {
     define(optimizer);
   }
   else {
