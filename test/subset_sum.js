@@ -1,5 +1,5 @@
-var algorithms = require("../subset_sum");
-var assert = require("assert");
+var algorithms = require('../subset_sum');
+var assert = require('assert');
 
 function getArraySum(inputArray){
   var sum = 0;
@@ -9,7 +9,7 @@ function getArraySum(inputArray){
   return sum;
 }
 
-describe('Algorithms', function(){
+describe('algorithms', function(){
   describe('#findSummingSubsets', function(){
     it('should not fail if invalid parameters are passed', function(){
       algorithms.findSummingSubsets();

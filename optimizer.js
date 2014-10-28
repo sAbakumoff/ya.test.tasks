@@ -1,5 +1,5 @@
 (function (scope, undefined) {
-  var optimizer = {}, fnOrigin;
+  var optimizer = {}, resetInterval = 1000;
   if (typeof Number.isFinite !== 'function') {
     Number.isFinite = function isFinite(value) {
       if (typeof value !== 'number') {
@@ -25,19 +25,19 @@
    * the "this" value and arguments are passed as the parameters
   */
   optimizer.limitFunctionsExecution = function(fn, maxExecNumber, callback){
-    if(!isFunction(fn) || !Number.isFinite(maxExecNumber)){
+    if (!isFunction(fn) || !Number.isFinite(maxExecNumber)) {
       return;
     }
     var counter = 0;
     setInterval(function resetCounter(){
       counter = 0;
-    }, 2000);
+    }, resetInterval);
     return function limitedFunction(){
-      if(counter++ >= maxExecNumber){
-        callback(this, arguments);
-      }
-      else{
+      if (counter++ < maxExecNumber) {
         return fn.apply(this, arguments);
+      }
+      else if (isFunction(callback)) {
+        callback(this, arguments);
       }
     };
   };
