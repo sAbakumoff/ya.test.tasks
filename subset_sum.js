@@ -23,6 +23,9 @@
       return true;
     };
   }
+  function isFunction(value) {
+    return {}.toString.call(value) === '[object Function]';
+  }  
   /**
    * Helper function that returns the array that contains the numbers 
    * selected from the given array
@@ -31,7 +34,7 @@
     if (!Array.isArray(inputArray)) {
       return;
     }
-    var numbersArray = inputArray.slice();
+    var numbersArray = [];
     for (var i = 0; i < inputArray.length; i++){
       var currentItem = inputArray[i];
       if (Number.isFinite(currentItem)) {
@@ -58,7 +61,7 @@
    * a couple of limitations.
   */
   function solve(startIndex, currentSum, targetSum, inputArray, trackArray, callback){
-    if (currentSum === targetSum) {
+    if (currentSum === targetSum && isFunction(callback)) {
       callback(selectTrackedItems(inputArray, trackArray));
     }
     if (currentSum === Infinity) {
@@ -108,7 +111,7 @@
     for (var i = 0; i<numbersSubset.length; i++) {
       trackArray[i] = 0;
     }
-    solve(0, Infinity, targetSum, inputArray, trackArray, callback);
+    solve(0, Infinity, targetSum, numbersSubset, trackArray, callback);
   };
   /**
    * Support for node.js modules, AMD modules and export to global scope
