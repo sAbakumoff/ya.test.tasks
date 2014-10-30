@@ -50,7 +50,7 @@
   function selectTrackedItems(inputArray, trackArray){
     var trackedItems = [];
     for (var i = 0; i < inputArray.length; i++) {
-      if (trackArray[i] === 1) {
+      if (trackArray[i]) {
         trackedItems.push(inputArray[i]);
       }
     }
@@ -73,12 +73,12 @@
       if (currentSum + currentItem > targetSum) {
         continue;
       }
-      if (i > 0 && currentItem === prevItem && trackArray[i-1] === 0) {
+      if (i > 0 && currentItem === prevItem && ! trackArray[i-1]) {
         continue;   
       }
-      trackArray[i] = 1;
+      trackArray[i] = true;
       solve(i + 1, currentSum + currentItem, targetSum, inputArray, trackArray, callback);
-      trackArray[i] = 0;
+      trackArray[i] = false;
     }    
   }
   /**
@@ -109,7 +109,7 @@
     numbersSubset.sort();
     var trackArray = [];
     for (var i = 0; i<numbersSubset.length; i++) {
-      trackArray[i] = 0;
+      trackArray.push(false);
     }
     solve(0, Infinity, targetSum, numbersSubset, trackArray, callback);
   };
