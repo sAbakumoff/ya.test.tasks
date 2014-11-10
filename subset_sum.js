@@ -44,7 +44,7 @@
     return numbersArray;
   }
   /**
-   * Help function that returns selects the array values from the 
+   * Help function that selects the array values from the 
    * specific indexes and returns the new array
   */
   function selectTrackedItems(inputArray, trackArray){
@@ -87,7 +87,7 @@
    * @param inputArray 
    * The input Array
    * @param callback
-   * the function that is invoked each time when the combination if found and it
+   * the function that is invoked each time when the combination is found and it
    * is passed as the argument.
    * @param targetSum
    * the number that the combinations should sum up to. It's 10 by default.
